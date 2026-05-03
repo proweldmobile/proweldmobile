@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProWeld Mobile — Fiche de chantier</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+:root {
+  --orange: #F37021;
+  --navy: #0F2F5F;
+  --navy2: #1a4480;
+  --bg: #0a1628;
+  --card: #111f38;
+  --card2: #162340;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(243,112,33,0.3);
+  --text: #f0f4ff;
+  --muted: #7a8db0;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0a1628, #0F2F5F);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 20px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+.brand-name span { color: var(--orange); }
+.header-badge {
+  background: rgba(243,112,33,0.15);
+  border: 1px solid rgba(243,112,33,0.4);
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* MAIN */
+.main { max-width: 680px; margin: 0 auto; padding: 20px 16px 80px; }
+
+/* SECTION */
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.section-header {
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-icon {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  background: rgba(243,112,33,0.15);
+  border: 1px solid rgba(243,112,33,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section-body { padding: 16px; }
+
+/* FIELDS */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.field-row.single { grid-template-columns: 1fr; }
+.field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field:last-child { margin-bottom: 0; }
+
+label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+label .req { color: var(--orange); }
+
+input, textarea, select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--orange);
+  background: rgba(243,112,33,0.06);
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2); font-size: 13px; }
+textarea { resize: vertical; min-height: 70px; }
+select option { background: #1a2744; color: #fff; }
+
+/* STATUS SELECTOR */
+.status-row { display: flex; gap: 8px; }
+.status-btn {
+  flex: 1;
+  padding: 9px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.status-btn.active-en-cours { background: rgba(245,158,11,0.15); border-color: var(--yellow); color: var(--yellow); }
+.status-btn.active-termine { background: rgba(34,197,94,0.15); border-color: var(--green); color: var(--green); }
+.status-btn.active-annule { background: rgba(239,68,68,0.15); border-color: var(--red); color: var(--red); }
+
+/* MATERIALS TABLE */
+.mat-header {
+  display: grid;
+  grid-template-columns: 1fr 80px 90px 90px 32px;
+  gap: 8px;
+  padding: 0 4px 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.mat-header span {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.mat-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 90px 90px 32px;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+.mat-row input { font-size: 13px; padding: 8px 10px; }
+.mat-total {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--orange);
+  padding: 8px 10px;
+  background: rgba(243,112,33,0.08);
+  border-radius: 7px;
+  border: 1px solid rgba(243,112,33,0.2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.btn-remove-mat {
+  width: 28px; height: 28px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 6px;
+  color: var(--red);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.btn-remove-mat:hover { background: rgba(239,68,68,0.2); }
+.btn-add-mat {
+  width: 100%;
+  margin-top: 4px;
+  padding: 9px;
+  background: none;
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-add-mat:hover { border-color: var(--orange); color: var(--orange); }
+
+/* HOURS */
+.hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hour-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px;
+  text-align: center;
+}
+.hour-card .hc-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.hour-card input {
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--orange);
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+.hour-card input:focus { background: none; border: none; }
+.hour-card .hc-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+/* TOTALS BOX */
+.totals-box {
+  background: rgba(15,47,95,0.4);
+  border: 1px solid rgba(15,47,95,0.8);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.total-line:last-child { border-bottom: none; }
+.total-line.main {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  padding-top: 10px;
+}
+.total-line .val { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.total-line.main .val { color: var(--orange); font-size: 20px; }
+
+/* SIGNATURE */
+.sig-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.sig-box .sig-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+canvas#sigCanvas {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  touch-action: none;
+  cursor: crosshair;
+  display: block;
+  width: 100%;
+  height: 100px;
+}
+.sig-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+.btn-sig-clear {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: var(--red);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+}
+
+/* BOTTOM ACTIONS */
+.bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10,22,40,0.97);
+  border-top: 1px solid var(--border2);
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.btn-print {
+  flex: 1;
+  background: linear-gradient(135deg, var(--orange), #d4611b);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(243,112,33,0.3);
+  transition: all 0.2s;
+}
+.btn-print:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(243,112,33,0.4); }
+.btn-reset {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* FICHE NO */
+.fiche-no-display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  padding: 8px 0 0;
+}
+.fiche-no-display strong { color: var(--orange); }
+
+/* NOTES FINALES */
+.note-field textarea { min-height: 55px; }
+
+/* ── PRINT STYLES ── */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff !important; color: #000 !important; font-size: 11px; }
+  .header, .bottom-bar, .btn-add-mat, .btn-remove-mat, .btn-sig-clear, .sig-actions { display: none !important; }
+  .main { padding: 0; max-width: 100%; }
+  .section { background: #fff !important; border: 1px solid #ddd !important; margin-bottom: 8px; border-radius: 6px; }
+  .section-header { background: #0F2F5F !important; color: #fff; padding: 8px 12px; }
+  .section-title { color: #fff !important; font-size: 11px; }
+  .section-body { padding: 10px 12px; }
+  input, textarea, select { background: #fff !important; border: 1px solid #ccc !important; color: #000 !important; font-size: 11px; }
+  .mat-total { background: #fff3e0 !important; border: 1px solid #F37021 !important; color: #000 !important; }
+  .hour-card { background: #fff !important; border: 1px solid #ddd !important; }
+  .hour-card input { color: #F37021 !important; font-size: 18px; }
+  .status-btn.active-termine { background: #dcfce7 !important; color: #000 !important; border-color: #22c55e !important; }
+  .status-btn.active-en-cours { background: #fef3c7 !important; color: #000 !important; }
+  .totals-box { background: #f0f4ff !important; border: 1px solid #0F2F5F !important; }
+  .total-line { color: #000 !important; }
+  .total-line .val { color: #000 !important; }
+  .total-line.main .val { color: #F37021 !important; }
+  canvas#sigCanvas { background: #f9f9f9 !important; border: 1px solid #ccc !important; }
+  .print-header { display: block !important; }
+}
+
+.print-header {
+  display: none;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #0F2F5F;
+  margin-bottom: 12px;
+}
+.print-header .ph-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #0F2F5F;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.print-header .ph-sub { font-size: 11px; color: #666; margin-top: 2px; }
+.print-header .ph-no { font-size: 12px; color: #F37021; font-weight: 700; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="42" r="7" fill="#dc2626"/>
+      <line x1="50" y1="42" x2="50" y2="10" stroke="#F37021" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="42" x2="50" y2="74" stroke="#F37021" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="42" x2="22" y2="58" stroke="#F37021" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="42" x2="78" y2="26" stroke="#0F2F5F" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="42" x2="22" y2="26" stroke="#F37021" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="42" x2="78" y2="58" stroke="#F37021" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Pro<span>W</span>eld Mobile</span>
+  </div>
+  <span class="header-badge">Fiche de chantier</span>
+</header>
+
+<div class="main">
+
+  <!-- PRINT HEADER -->
+  <div class="print-header">
+    <div class="ph-title">ProWeld Mobile — Fiche de chantier</div>
+    <div class="ph-sub">800 Rue Principale, Lac-Drolet, QC · 581-372-6673 · proweldmobile.ca</div>
+    <div class="ph-no" id="print-no"></div>
+  </div>
+
+  <!-- 1. IDENTIFICATION -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <span class="section-title">Identification du chantier</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row">
+        <div class="field">
+          <label>No. fiche <span class="req">*</span></label>
+          <input type="text" id="ficheNo" placeholder="FC-2026-001">
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="ficheDate">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>No. soumission liée</label>
+          <input type="text" id="soumissionRef" placeholder="PWM-2026-001">
+        </div>
+        <div class="field">
+          <label>Statut</label>
+          <div class="status-row">
+            <button class="status-btn active-en-cours" onclick="setStatus('en-cours')" id="s-en-cours">⏳ En cours</button>
+            <button class="status-btn" onclick="setStatus('termine')" id="s-termine">✅ Terminé</button>
+            <button class="status-btn" onclick="setStatus('annule')" id="s-annule">✗ Annulé</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CLIENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏢</div>
+      <span class="section-title">Client</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row">
+        <div class="field">
+          <label>Entreprise / Client <span class="req">*</span></label>
+          <input type="text" id="clientNom" placeholder="Résidence Harmonie">
+        </div>
+        <div class="field">
+          <label>Contact sur place</label>
+          <input type="text" id="clientContact" placeholder="Nom du responsable">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Téléphone</label>
+          <input type="tel" id="clientTel" placeholder="819-xxx-xxxx">
+        </div>
+        <div class="field">
+          <label>Adresse du chantier</label>
+          <input type="text" id="clientAdresse" placeholder="Lac-Mégantic, QC">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TRAVAUX -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔧</div>
+      <span class="section-title">Description des travaux</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row single">
+        <div class="field">
+          <label>Titre du travail <span class="req">*</span></label>
+          <input type="text" id="travailTitre" placeholder="Fabrication et installation de poteaux en acier">
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field">
+          <label>Description détaillée</label>
+          <textarea id="travailDesc" placeholder="Détails techniques, dimensions, conditions d'accès, équipements utilisés..."></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Procédé de soudure</label>
+          <select id="procede">
+            <option value="">— Sélectionner —</option>
+            <option>MIG / GMAW</option>
+            <option>TIG / GTAW</option>
+            <option>Plasma (découpe)</option>
+            <option>MIG + TIG</option>
+            <option>Meulage / Finition</option>
+            <option>Assemblage mécanique</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Métal / Matériau</label>
+          <select id="materiau">
+            <option value="">— Sélectionner —</option>
+            <option>Acier au carbone</option>
+            <option>Acier inoxydable 304</option>
+            <option>Acier inoxydable 316</option>
+            <option>Aluminium</option>
+            <option>Fer forgé</option>
+            <option>Acier galvanisé</option>
+            <option>Mixte</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MATÉRIAUX -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🪛</div>
+      <span class="section-title">Matériaux utilisés</span>
+    </div>
+    <div class="section-body">
+      <div class="mat-header">
+        <span>Description</span>
+        <span>Qté</span>
+        <span>Unité</span>
+        <span>Coût unit.</span>
+        <span></span>
+      </div>
+      <div id="mat-container"></div>
+      <button class="btn-add-mat" onclick="addMat()">＋ Ajouter un matériau</button>
+      <div class="totals-box" style="margin-top:12px">
+        <div class="total-line">
+          <span>Coût matériaux</span>
+          <span class="val" id="tot-mat">0,00 $</span>
+        </div>
+        <div class="total-line">
+          <span>Main-d'œuvre</span>
+          <span class="val" id="tot-mo">0,00 $</span>
+        </div>
+        <div class="total-line main">
+          <span>TOTAL CHANTIER</span>
+          <span class="val" id="tot-total">0,00 $</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. HEURES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⏱</div>
+      <span class="section-title">Temps de travail</span>
+    </div>
+    <div class="section-body">
+      <div class="hours-grid">
+        <div class="hour-card">
+          <div class="hc-label">Heure début</div>
+          <input type="time" id="heureDebut" oninput="calcHeures()">
+          <div class="hc-sub">Arrivée sur site</div>
+        </div>
+        <div class="hour-card">
+          <div class="hc-label">Heure fin</div>
+          <input type="time" id="heureFin" oninput="calcHeures()">
+          <div class="hc-sub">Départ du site</div>
+        </div>
+        <div class="hour-card">
+          <div class="hc-label">Total heures</div>
+          <input type="number" id="totalHeures" placeholder="0" step="0.5" min="0" oninput="calcMO()">
+          <div class="hc-sub">Calculé auto</div>
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:12px">
+        <div class="field">
+          <label>Taux horaire ($)</label>
+          <input type="number" id="tauxHoraire" placeholder="75" value="75" min="0" step="5" oninput="calcMO()">
+        </div>
+        <div class="field">
+          <label>Nb. techniciens</label>
+          <input type="number" id="nbTech" placeholder="1" value="1" min="1" max="10" oninput="calcMO()">
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:4px">
+        <div class="field">
+          <label>Déplacement (km)</label>
+          <input type="number" id="kmDeplacement" placeholder="0" min="0" oninput="calcMO()">
+        </div>
+        <div class="field">
+          <label>Taux km ($)</label>
+          <input type="number" id="tauxKm" placeholder="0.70" value="0.70" step="0.05" oninput="calcMO()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. OBSERVATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📝</div>
+      <span class="section-title">Observations & contrôle qualité</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row single note-field">
+        <div class="field">
+          <label>Observations techniques</label>
+          <textarea id="observations" placeholder="État du chantier, difficultés rencontrées, travaux supplémentaires effectués..."></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Contrôle qualité</label>
+          <select id="qualite">
+            <option value="">— Résultat —</option>
+            <option>✅ Conforme — travail accepté</option>
+            <option>⚠️ Conforme avec réserves</option>
+            <option>🔄 Retour requis</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Photos prises</label>
+          <select id="photos">
+            <option value="oui">✅ Oui — DJI Action 5 Pro</option>
+            <option value="non">❌ Non</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row single note-field">
+        <div class="field">
+          <label>Suivi requis</label>
+          <textarea id="suivi" placeholder="Travaux à compléter, pièces à commander, prochain rendez-vous..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. SIGNATURE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">✍️</div>
+      <span class="section-title">Signature client</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field">
+          <label>Nom du signataire</label>
+          <input type="text" id="sigNom" placeholder="Nom complet">
+        </div>
+        <div class="field">
+          <label>Titre / Fonction</label>
+          <input type="text" id="sigTitre" placeholder="Directeur, responsable...">
+        </div>
+      </div>
+      <div class="sig-box">
+        <div class="sig-label">Signature (tracer avec le doigt)</div>
+        <canvas id="sigCanvas"></canvas>
+        <div class="sig-actions">
+          <button class="btn-sig-clear" onclick="clearSig()">Effacer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fiche-no-display">Fiche <strong id="fiche-no-display">—</strong> · ProWeld Mobile · proweldmobile.ca</div>
+  <div style="height:80px"></div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="btn-reset" onclick="resetForm()">🗑 Nouveau</button>
+  <button class="btn-print" onclick="imprimerFiche()">🖨 Imprimer / Enregistrer PDF</button>
+</div>
+
+<script>
+// ── INIT
+let mats = [];
+let currentStatus = 'en-cours';
+let ficheCounter = parseInt(localStorage.getItem('pwm_fiche_counter') || '0');
+
+window.onload = () => {
+  ficheCounter++;
+  const no = `FC-2026-${String(ficheCounter).padStart(3,'0')}`;
+  document.getElementById('ficheNo').value = no;
+  document.getElementById('fiche-no-display').textContent = no;
+  document.getElementById('print-no').textContent = no;
+  document.getElementById('ficheNo').addEventListener('input', () => {
+    document.getElementById('fiche-no-display').textContent = document.getElementById('ficheNo').value || '—';
+    document.getElementById('print-no').textContent = document.getElementById('ficheNo').value;
+  });
+
+  // Today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('ficheDate').value = today;
+
+  addMat();
+  addMat();
+  initCanvas();
+};
+
+// ── STATUS
+function setStatus(s) {
+  currentStatus = s;
+  ['en-cours','termine','annule'].forEach(id => {
+    const btn = document.getElementById('s-' + id);
+    btn.className = 'status-btn';
+    if (id === s) btn.classList.add('active-' + id);
+  });
+}
+
+// ── MATERIALS
+function addMat() {
+  const id = Date.now() + Math.random();
+  mats.push({ id, desc: '', qty: 1, unite: 'unité', cout: 0 });
+  renderMats();
+}
+
+function removeMat(id) {
+  mats = mats.filter(m => m.id !== id);
+  renderMats();
+  updateTotals();
+}
+
+function renderMats() {
+  const c = document.getElementById('mat-container');
+  c.innerHTML = '';
+  mats.forEach(m => {
+    const row = document.createElement('div');
+    row.className = 'mat-row';
+    const total = (m.qty * m.cout).toFixed(2);
+    row.innerHTML = `
+      <input type="text" placeholder="Ex: Acier plat 1/4 pouce" value="${m.desc}"
+        oninput="updateMat(${m.id},'desc',this.value)">
+      <input type="number" placeholder="1" value="${m.qty||''}" min="0" step="0.5"
+        oninput="updateMat(${m.id},'qty',this.value)">
+      <input type="text" placeholder="unité" value="${m.unite}"
+        oninput="updateMat(${m.id},'unite',this.value)">
+      <input type="number" placeholder="0.00" value="${m.cout||''}" min="0" step="1"
+        oninput="updateMat(${m.id},'cout',this.value)">
+      ${mats.length > 1 ? `<button class="btn-remove-mat" onclick="removeMat(${m.id})">×</button>` : '<div></div>'}
+    `;
+    // inject total display
+    const totalDiv = document.createElement('div');
+    totalDiv.style.gridColumn = '4';
+    c.appendChild(row);
+
+    // replace 4th cell with total display
+    const cells = row.querySelectorAll('input');
+    const totalEl = document.createElement('div');
+    totalEl.className = 'mat-total';
+    totalEl.textContent = formatCAD(parseFloat(total));
+    row.children[3].replaceWith(totalEl);
+    // re-add cost input before total
+    row.insertBefore(cells[3], totalEl);
+  });
+  updateTotals();
+}
+
+function updateMat(id, field, val) {
+  const m = mats.find(x => x.id === id);
+  if (!m) return;
+  if (field === 'qty' || field === 'cout') m[field] = parseFloat(val) || 0;
+  else m[field] = val;
+  renderMats();
+}
+
+// ── HOURS
+function calcHeures() {
+  const d = document.getElementById('heureDebut').value;
+  const f = document.getElementById('heureFin').value;
+  if (!d || !f) return;
+  const [dh, dm] = d.split(':').map(Number);
+  const [fh, fm] = f.split(':').map(Number);
+  let diff = (fh * 60 + fm) - (dh * 60 + dm);
+  if (diff < 0) diff += 1440;
+  const heures = Math.round(diff / 30) * 0.5;
+  document.getElementById('totalHeures').value = heures;
+  calcMO();
+}
+
+function calcMO() {
+  const h = parseFloat(document.getElementById('totalHeures').value) || 0;
+  const t = parseFloat(document.getElementById('tauxHoraire').value) || 0;
+  const n = parseInt(document.getElementById('nbTech').value) || 1;
+  const km = parseFloat(document.getElementById('kmDeplacement').value) || 0;
+  const tkm = parseFloat(document.getElementById('tauxKm').value) || 0;
+  const mo = h * t * n + km * tkm;
+  document.getElementById('tot-mo').textContent = formatCAD(mo);
+  updateTotals();
+}
+
+function updateTotals() {
+  const matTotal = mats.reduce((s, m) => s + (m.qty * m.cout), 0);
+  const moText = document.getElementById('tot-mo').textContent;
+  const mo = parseFloat(moText.replace(/[^0-9.]/g, '')) || 0;
+  document.getElementById('tot-mat').textContent = formatCAD(matTotal);
+  document.getElementById('tot-total').textContent = formatCAD(matTotal + mo);
+}
+
+function formatCAD(n) {
+  return n.toLocaleString('fr-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $';
+}
+
+// ── CANVAS SIGNATURE
+let isDrawing = false;
+let lastX = 0, lastY = 0;
+let ctx;
+
+function initCanvas() {
+  const canvas = document.getElementById('sigCanvas');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = 100;
+  ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#F37021';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  const getPos = (e) => {
+    const r = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / r.width;
+    const scaleY = canvas.height / r.height;
+    if (e.touches) {
+      return [(e.touches[0].clientX - r.left) * scaleX, (e.touches[0].clientY - r.top) * scaleY];
+    }
+    return [(e.clientX - r.left) * scaleX, (e.clientY - r.top) * scaleY];
+  };
+
+  canvas.addEventListener('mousedown', e => { isDrawing = true; [lastX, lastY] = getPos(e); });
+  canvas.addEventListener('mousemove', e => {
+    if (!isDrawing) return;
+    const [x, y] = getPos(e);
+    ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+    [lastX, lastY] = [x, y];
+  });
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseleave', () => isDrawing = false);
+
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing = true; [lastX, lastY] = getPos(e); }, { passive: false });
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const [x, y] = getPos(e);
+    ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+    [lastX, lastY] = [x, y];
+  }, { passive: false });
+  canvas.addEventListener('touchend', () => isDrawing = false);
+}
+
+function clearSig() {
+  const canvas = document.getElementById('sigCanvas');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// ── PRINT
+function imprimerFiche() {
+  const no = document.getElementById('ficheNo').value;
+  if (no) {
+    const num = parseInt(no.split('-').pop()) || ficheCounter;
+    localStorage.setItem('pwm_fiche_counter', num);
+  }
+  window.print();
+}
+
+// ── RESET
+function resetForm() {
+  if (!confirm('Créer une nouvelle fiche? Les données actuelles seront perdues.')) return;
+  ficheCounter++;
+  localStorage.setItem('pwm_fiche_counter', ficheCounter);
+  const no = `FC-2026-${String(ficheCounter).padStart(3,'0')}`;
+  document.getElementById('ficheNo').value = no;
+  document.getElementById('fiche-no-display').textContent = no;
+  document.getElementById('print-no').textContent = no;
+  document.getElementById('ficheDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('soumissionRef').value = '';
+  ['clientNom','clientContact','clientTel','clientAdresse',
+   'travailTitre','travailDesc','procede','materiau',
+   'heureDebut','heureFin','totalHeures','kmDeplacement',
+   'observations','suivi','sigNom','sigTitre'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('tauxHoraire').value = '75';
+  document.getElementById('nbTech').value = '1';
+  document.getElementById('tauxKm').value = '0.70';
+  document.getElementById('tot-mo').textContent = '0,00 $';
+  mats = [];
+  addMat(); addMat();
+  clearSig();
+  setStatus('en-cours');
+  updateTotals();
+}
+</script>
+</body>
+</html>
