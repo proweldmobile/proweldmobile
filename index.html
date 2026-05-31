@@ -268,10 +268,11 @@ footer{background:#060C16;border-top:1px solid var(--bd);padding:52px 28px 28px}
 /* ═══════════════════════════
    CHATBOT ZOÉ
 ═══════════════════════════ */
-#zoe-btn{position:fixed;bottom:28px;right:28px;z-index:9999;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--o),var(--od));box-shadow:0 4px 20px rgba(243,112,33,.5);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
-#zoe-btn:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(243,112,33,.65)}
-#zoe-btn svg{width:28px;height:28px;fill:#fff}
-.zoe-notif{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#25D366;border-radius:50%;border:2px solid #060C16;animation:blink 2s infinite}
+#zoe-btn{position:fixed;bottom:28px;right:28px;z-index:9999;width:72px;height:72px;border-radius:50%;background:none;border:none;cursor:pointer;padding:0;filter:drop-shadow(0 4px 20px rgba(243,112,33,.5));animation:zoePulse 3s ease-in-out infinite;transition:transform .2s}
+#zoe-btn:hover{transform:scale(1.08)}
+#zoe-btn.open{animation:none}
+@keyframes zoePulse{0%,100%{filter:drop-shadow(0 4px 18px rgba(243,112,33,.45))}50%{filter:drop-shadow(0 4px 28px rgba(243,112,33,.8))}}
+.zoe-notif{position:absolute;top:-2px;right:-2px;width:20px;height:20px;background:var(--o);border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:900;color:#fff}
 
 #zoe-window{position:fixed;bottom:104px;right:28px;z-index:9999;width:360px;max-height:520px;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;transform:scale(.85) translateY(20px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
 #zoe-window.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
@@ -776,15 +777,108 @@ footer{background:#060C16;border-top:1px solid var(--bd);padding:52px 28px 28px}
 
 <!-- ════ CHATBOT ZOÉ ════ -->
 <button id="zoe-btn" onclick="toggleZoe()" aria-label="Parler à Zoé — Assistante ProWeld Mobile">
-  <div class="zoe-notif"></div>
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" style="display:none"/><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  <div class="zoe-notif">1</div>
+  <!-- Avatar SVG Zoé — peau miel, boucles naturelles, sourire éclatant -->
+  <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+    <circle cx="36" cy="36" r="36" fill="#0A2248"/>
+    <circle cx="36" cy="36" r="34" fill="none" stroke="#F37021" stroke-width="2"/>
+    <path d="M13 72 Q13 56 36 56 Q59 56 59 72 Z" fill="#0F2F5F"/>
+    <rect x="30" y="54" width="12" height="5" rx="2" fill="#0A2248"/>
+    <rect x="31" y="47" width="10" height="11" rx="4" fill="#E8B882"/>
+    <ellipse cx="36" cy="37" rx="15" ry="17" fill="#F0C896"/>
+    <ellipse cx="36" cy="46" rx="12.5" ry="8" fill="#E0A870"/>
+    <ellipse cx="24" cy="40" rx="6" ry="4" fill="#F5C090" opacity=".7"/>
+    <ellipse cx="48" cy="40" rx="6" ry="4" fill="#F5C090" opacity=".7"/>
+    <ellipse cx="28.5" cy="34.5" rx="5.2" ry="4" fill="#fff"/>
+    <ellipse cx="43.5" cy="34.5" rx="5.2" ry="4" fill="#fff"/>
+    <circle cx="28.5" cy="35" r="3.1" fill="#3D1C00"/>
+    <circle cx="43.5" cy="35" r="3.1" fill="#3D1C00"/>
+    <circle cx="28.5" cy="35" r="1.8" fill="#1A0800"/>
+    <circle cx="43.5" cy="35" r="1.8" fill="#1A0800"/>
+    <circle cx="29.9" cy="33.8" r="1.2" fill="#fff"/>
+    <circle cx="44.9" cy="33.8" r="1.2" fill="#fff"/>
+    <path d="M23 30.5 Q28.5 28 34 30.5" stroke="#2A1000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M38 30.5 Q43.5 28 49 30.5" stroke="#2A1000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M24 29.5 Q28.5 27.5 33 29" stroke="#4A2800" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M39 29 Q43.5 27.5 48 29.5" stroke="#4A2800" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="36" cy="41" rx="2.5" ry="1.8" fill="#D4956A" opacity=".5"/>
+    <path d="M33.8 42 Q36 43.5 38.2 42" stroke="#C07840" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M24 46.5 Q36 57 48 46.5" fill="#A03018"/>
+    <path d="M26.5 47 Q36 55.5 45.5 47" fill="#fff" opacity=".97"/>
+    <path d="M24 46.5 Q30 44.5 36 45 Q42 44.5 48 46.5" fill="#C04A28" opacity=".85"/>
+    <ellipse cx="36" cy="21" rx="19" ry="13" fill="#2A1A08"/>
+    <circle cx="18" cy="26" r="8" fill="#2A1A08"/>
+    <circle cx="16" cy="20" r="7" fill="#362010"/>
+    <circle cx="19" cy="14" r="7" fill="#2A1A08"/>
+    <circle cx="25" cy="11" r="7" fill="#362010"/>
+    <circle cx="17" cy="30" r="5" fill="#221408"/>
+    <circle cx="14" cy="35" r="4" fill="#2A1A08"/>
+    <circle cx="36" cy="10" r="8" fill="#2A1A08"/>
+    <circle cx="30" cy="9" r="6" fill="#362010"/>
+    <circle cx="42" cy="9" r="6" fill="#2A1A08"/>
+    <circle cx="36" cy="6" r="5" fill="#362010"/>
+    <circle cx="47" cy="11" r="7" fill="#2A1A08"/>
+    <circle cx="53" cy="14" r="7" fill="#362010"/>
+    <circle cx="56" cy="20" r="7" fill="#2A1A08"/>
+    <circle cx="54" cy="26" r="8" fill="#362010"/>
+    <circle cx="55" cy="32" r="5" fill="#2A1A08"/>
+    <circle cx="58" cy="37" r="4" fill="#221408"/>
+    <circle cx="20" cy="38" r="4" fill="#2A1A08"/>
+    <circle cx="19" cy="43" r="3.5" fill="#362010"/>
+    <circle cx="52" cy="38" r="4" fill="#2A1A08"/>
+    <circle cx="53" cy="43" r="3.5" fill="#362010"/>
+    <path d="M24 16 Q36 11 48 16" stroke="#6A4010" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".5"/>
+    <circle cx="21" cy="44" r="1.5" fill="#F37021" opacity=".9"/>
+    <circle cx="51" cy="44" r="1.5" fill="#F37021" opacity=".9"/>
+    <rect x="26" y="59" width="20" height="6" rx="2" fill="#F37021" opacity=".95"/>
+    <text x="36" y="63.6" font-family="Arial" font-size="3.8" font-weight="bold" fill="#fff" text-anchor="middle">ProWeld</text>
+  </svg>
 </button>
 
 <div id="zoe-window">
   <div class="zoe-header">
-    <div class="zoe-avatar">⚡</div>
+    <div class="zoe-avatar">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+        <circle cx="24" cy="24" r="24" fill="#0A2248"/>
+        <path d="M8 48 Q8 37 24 37 Q40 37 40 48 Z" fill="#0F2F5F"/>
+        <rect x="20" y="31" width="8" height="8" rx="2" fill="#E8B882"/>
+        <ellipse cx="24" cy="25" rx="11" ry="12.5" fill="#F0C896"/>
+        <ellipse cx="24" cy="32" rx="9.5" ry="7" fill="#E0A870"/>
+        <ellipse cx="15.5" cy="28.5" rx="4" ry="3" fill="#F5C090" opacity=".7"/>
+        <ellipse cx="32.5" cy="28.5" rx="4" ry="3" fill="#F5C090" opacity=".7"/>
+        <ellipse cx="19.5" cy="23.5" rx="3.8" ry="3" fill="#fff"/>
+        <ellipse cx="28.5" cy="23.5" rx="3.8" ry="3" fill="#fff"/>
+        <circle cx="19.5" cy="23.8" r="2.3" fill="#3D1C00"/>
+        <circle cx="28.5" cy="23.8" r="2.3" fill="#3D1C00"/>
+        <circle cx="19.5" cy="23.8" r="1.3" fill="#1A0800"/>
+        <circle cx="28.5" cy="23.8" r="1.3" fill="#1A0800"/>
+        <circle cx="20.5" cy="22.8" r=".9" fill="#fff"/>
+        <circle cx="29.5" cy="22.8" r=".9" fill="#fff"/>
+        <path d="M15.8 20.5 Q19.5 19 23.2 20.5" stroke="#2A1000" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M24.8 20.5 Q28.5 19 32.2 20.5" stroke="#2A1000" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M15 30 Q24 38.5 33 30" fill="#A03018"/>
+        <path d="M17 30.5 Q24 38 31 30.5" fill="#fff" opacity=".97"/>
+        <path d="M15 30 Q24 35.5 33 30" stroke="#903020" stroke-width=".9" fill="none" stroke-linecap="round"/>
+        <ellipse cx="24" cy="13.5" rx="13" ry="8.5" fill="#2A1A08"/>
+        <circle cx="12" cy="17" r="5.5" fill="#2A1A08"/>
+        <circle cx="10" cy="12" r="5" fill="#362010"/>
+        <circle cx="13" cy="8" r="5" fill="#2A1A08"/>
+        <circle cx="18" cy="6" r="5" fill="#362010"/>
+        <circle cx="10" cy="21" r="4" fill="#221408"/>
+        <circle cx="30" cy="6" r="5" fill="#2A1A08"/>
+        <circle cx="35" cy="8" r="5" fill="#362010"/>
+        <circle cx="38" cy="12" r="5" fill="#2A1A08"/>
+        <circle cx="36" cy="17" r="5.5" fill="#362010"/>
+        <circle cx="38" cy="21" r="4" fill="#221408"/>
+        <path d="M16 12 Q24 9 32 12" stroke="#6A4010" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+        <circle cx="12" cy="27" r="3" fill="#362010"/>
+        <circle cx="36" cy="27" r="3" fill="#362010"/>
+        <circle cx="13" cy="30" r="1.2" fill="#F37021" opacity=".9"/>
+        <circle cx="35" cy="30" r="1.2" fill="#F37021" opacity=".9"/>
+      </svg>
+    </div>
     <div class="zoe-info">
-      <div class="zoe-name">Zoé — ProWeld Mobile</div>
+      <div class="zoe-name">ZOÉ — ProWeld Mobile</div>
       <div class="zoe-status">En ligne maintenant</div>
     </div>
     <button class="zoe-close" onclick="toggleZoe()" aria-label="Fermer">✕</button>
@@ -794,6 +888,12 @@ footer{background:#060C16;border-top:1px solid var(--bd);padding:52px 28px 28px}
   <div class="zoe-input-area">
     <input type="text" class="zoe-input" id="zoeInput" placeholder="Écrivez votre message..." onkeydown="if(event.key==='Enter')zoeSend()">
     <button class="zoe-send" onclick="zoeSend()" aria-label="Envoyer">➤</button>
+  </div>
+  <div style="padding:10px 16px;border-top:1px solid var(--bs)">
+    <a href="https://wa.me/15813726673" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25D366;padding:10px;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(37,211,102,.2)'" onmouseout="this.style.background='rgba(37,211,102,.1)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp direct — 581-372-6673
+    </a>
   </div>
 </div>
 
@@ -872,6 +972,17 @@ function submitForm(e){
 /* ═══════════ CHATBOT ZOÉ ═══════════ */
 let zoeOpen=false;
 let zoeStarted=false;
+let zoeFlowStep=0;
+let zoeUserData={};
+let zoeInFlow=false;
+
+// Guided flow
+const zoeFlow=[
+  {id:'type_client',msg:"Pour mieux vous aider, j'ai quelques questions rapides! Vous représentez quel type d'entreprise?",choices:['🏭 Industriel','🌾 Agricole','🌲 Forestier','🏛️ Municipal','🏠 Autre'],key:'type_client'},
+  {id:'type_travail',msg:"Parfait! Quel type de travail vous avez besoin?",choices:['🔧 Réparation / Soudure','⚙️ Fabrication sur mesure','📐 Plans 2D/3D','🚨 Urgence maintenant'],key:'type_travail'},
+  {id:'urgence',msg:"C'est pour quand?",choices:["🔴 Aujourd'hui — Urgent",'📅 Cette semaine','🗓️ Projet planifié'],key:'urgence'},
+  {id:'zone',msg:"Vous êtes situé dans quelle région?",choices:['📍 MRC du Granit','🌄 Estrie','🌿 Beauce / Chaudière','🏙️ Autre région QC'],key:'zone'}
+];
 
 const zoeResponses=[
   {
@@ -934,15 +1045,88 @@ const zoeDefault={
 function toggleZoe(){
   zoeOpen=!zoeOpen;
   const win=document.getElementById('zoe-window');
+  const btn=document.getElementById('zoe-btn');
   win.classList.toggle('open',zoeOpen);
-  document.querySelector('.zoe-notif').style.display=zoeOpen?'none':'block';
+  btn.classList.toggle('open',zoeOpen);
+  const notif=document.querySelector('.zoe-notif');
+  if(notif)notif.style.display=zoeOpen?'none':'flex';
   if(zoeOpen&&!zoeStarted){
     zoeStarted=true;
-    setTimeout(()=>zoeAddMessage('bot','Bonjour! 👋 Je suis <strong style="color:var(--w)">Zoé</strong>, l\'assistante de ProWeld Mobile. Comment puis-je vous aider aujourd\'hui?'),300);
-    setTimeout(()=>showQuickReplies(['🚨 Urgence','💰 Prix & soumission','📐 Plans 2D/3D','📍 Zones','⏰ Disponibilité']),700);
-    if(document.getElementById('zoeInput'))document.getElementById('zoeInput').focus();
+    setTimeout(()=>{
+      zoeAddMessage('bot','Bonjour! 👋 Je suis <strong style="color:var(--w)">ZOÉ</strong>, l\'assistante virtuelle de <strong style="color:var(--o)">ProWeld Mobile</strong>.');
+    },300);
+    setTimeout(()=>{
+      zoeAddMessage('bot','Vous pouvez me poser une question, ou je peux vous guider pour obtenir une soumission en 2 minutes!');
+      showQuickReplies(['🚀 Obtenir une soumission rapide','🚨 Urgence industrielle','💬 Poser une question']);
+    },900);
   }
 }
+
+function zoeStartFlow(){
+  zoeInFlow=true;
+  zoeFlowStep=0;
+  zoeUserData={};
+  showFlowStep(0);
+}
+
+function showFlowStep(i){
+  if(i>=zoeFlow.length){zoeFlowConclusion();return;}
+  const s=zoeFlow[i];
+  zoeShowTyping();
+  setTimeout(()=>{
+    zoeHideTyping();
+    zoeAddMessage('bot',s.msg);
+    setTimeout(()=>{
+      const qr=document.getElementById('zoeQuick');
+      qr.innerHTML='';
+      s.choices.forEach(c=>{
+        const btn=document.createElement('button');
+        btn.className='zoe-qbtn';
+        btn.textContent=c;
+        btn.onclick=()=>{
+          zoeUserData[s.key]=c;
+          qr.innerHTML='';
+          zoeAddMessage('user',c);
+          zoeFlowStep=i+1;
+          setTimeout(()=>showFlowStep(zoeFlowStep),400);
+        };
+        qr.appendChild(btn);
+      });
+    },300);
+  },700);
+}
+
+function zoeFlowConclusion(){
+  zoeInFlow=false;
+  zoeShowTyping();
+  const isUrgent=zoeUserData.urgence&&zoeUserData.urgence.includes('Urgent');
+  setTimeout(()=>{
+    zoeHideTyping();
+    const recap=`Merci! Voici ce que j'ai noté:<br>• <strong style="color:var(--w)">${zoeUserData.type_client||''}</strong> — ${zoeUserData.type_travail||''}<br>• Zone: ${zoeUserData.zone||''}<br>• Délai: ${zoeUserData.urgence||''}`;
+    zoeAddMessage('bot',recap);
+    setTimeout(()=>{
+      zoeShowTyping();
+      setTimeout(()=>{
+        zoeHideTyping();
+        if(isUrgent){
+          zoeAddMessage('bot','⚡ C\'est urgent! Javier répond en moins de 5 minutes par WhatsApp. Cliquez ci-dessous 👇');
+          showQuickReplies(['💬 Ouvrir WhatsApp maintenant','📞 Appeler 581-372-6673']);
+        } else {
+          zoeAddMessage('bot','Parfait! Je vous oriente vers notre formulaire — Javier vous répond dans les 2 heures. 🙂');
+          showQuickReplies(['📋 Aller au formulaire','💬 WhatsApp quand même','❓ Autre question']);
+        }
+      },800);
+    },600);
+  },1000);
+}
+
+function zoeShowTyping(){
+  const msgs=document.getElementById('zoeMessages');
+  let t=document.getElementById('zoeTypingDots');
+  if(!t){t=document.createElement('div');t.id='zoeTypingDots';t.className='zoe-msg bot zoe-typing';t.innerHTML='<span></span><span></span><span></span>';msgs.appendChild(t);}
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function zoeHideTyping(){const t=document.getElementById('zoeTypingDots');if(t)t.remove();}
 
 function zoeAddMessage(type,text){
   const msgs=document.getElementById('zoeMessages');
@@ -961,8 +1145,23 @@ function showQuickReplies(options){
     btn.className='zoe-qbtn';
     btn.textContent=opt;
     btn.onclick=()=>{
-      zoeAddMessage('user',opt);
       qr.innerHTML='';
+      // Special handlers
+      if(opt.includes('soumission rapide')||opt.includes('Obtenir')){
+        zoeAddMessage('user',opt);
+        zoeStartFlow();
+        return;
+      }
+      if(opt.includes('Ouvrir WhatsApp')){
+        window.open('https://wa.me/15813726673','_blank');
+        return;
+      }
+      if(opt.includes('Aller au formulaire')){
+        window.location.href='#contact';
+        toggleZoe();
+        return;
+      }
+      zoeAddMessage('user',opt);
       zoeProcess(opt);
     };
     qr.appendChild(btn);
