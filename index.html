@@ -264,10 +264,11 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
 }
 
 /* ── Vidéo maquette ── */
-.pv video{width:100%;max-height:420px;border-radius:12px;display:block;background:#0B1E3B}
+.pv video{width:min(100%,460px);height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:18px;display:block;background:#0B1E3B;box-shadow:0 24px 50px -20px rgba(0,0,0,.6)}
 .pv .pv-fallback{display:none;width:100%;max-width:400px}
 .pv.novideo video{display:none}.pv.novideo .pv-fallback{display:block}
-.pv{padding:14px}
+.pv{padding:0;background:transparent;border:0;overflow:visible}
+.pv.novideo{padding:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
 /* ── Carte disponibilité ── */
 .dcard.dispo{cursor:pointer;transition:background .2s}
 .dcard.dispo:hover{background:rgba(243,112,33,.06)}
@@ -670,7 +671,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
         <div class="zi"><div class="zd sec"></div><div><div class="zn">Partout au Québec</div><div class="zdesc">Usines, mines, fermes et chantiers — je me déplace dans toute la province, sur devis</div></div></div>
         <div class="rbox">
           <div class="rbt">Réponse rapide</div>
-          <p>Pour toute demande en zone principale, nous répondons rapidement et planifions une visite ou une intervention dès que possible, fins de semaine incluses.<br><br>Pour aller plus vite : WhatsApp avec vos photos.</p>
+          <p>Pour toute demande en zone principale, je réponds rapidement et je planifie une visite ou une intervention lors de mes prochaines fins de semaine disponibles.<br><br>Pour aller plus vite : WhatsApp avec vos photos.</p>
         </div>
       </div>
     </div>
@@ -694,7 +695,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
         <div class="ccard"><div class="cn">+25</div><div class="cl">Années d'expérience en soudure industrielle</div></div>
         <div class="ccard"><div class="cn">100%</div><div class="cl">Travail mobile — on vient chez vous</div></div>
         <div class="ccard"><div class="cn">2D/3D</div><div class="cl">Plans d'ingénierie disponibles</div></div>
-        <div class="ccard"><div class="cn">7j/7</div><div class="cl">Disponibilité, fins de semaine incluses</div></div>
+        <div class="ccard"><div class="cn">Ven–Dim</div><div class="cl">Disponible chaque fin de semaine</div></div>
       </div>
       <div class="clist">
         <div>✅ Plus de 25 ans d'expérience en soudure industrielle (SMAW, GTAW, GMAW, FCAW)</div>
@@ -718,7 +719,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
       <div class="citem"><div class="cico">💬</div><div><div class="cit">WhatsApp</div><div class="civ">Envoyez un message ou des photos à notre assistante <strong>Zoé</strong> au <a href="https://wa.me/15813726673">581-372-6673</a></div></div></div>
       <div class="citem"><div class="cico">✉️</div><div><div class="cit">Courriel</div><div class="civ"><a href="mailto:proweldmobile@gmail.com">proweldmobile@gmail.com</a></div></div></div>
       <div class="citem"><div class="cico">📍</div><div><div class="cit">Secteur principal</div><div class="civ">Lac-Drolet, MRC du Granit, Québec<br>Déplacements partout au Québec</div></div></div>
-      <div class="citem"><div class="cico">🕐</div><div><div class="cit">Disponibilité</div><div class="civ">Toute la semaine, incluant les fins de semaine sur demande</div></div></div>
+      <div class="citem"><div class="cico">🕐</div><div><div class="cit">Disponibilité</div><div class="civ">Du vendredi au dimanche — voir le calendrier de disponibilités</div></div></div>
       <a href="https://wa.me/15813726673?text=Bonjour%20ProWeld%20Mobile%2C%20j'aimerais%20une%20soumission%20pour..." class="wabtn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Envoyer des photos par WhatsApp
@@ -744,7 +745,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
             <option>Soudure inox / TIG</option>
             <option>Machinerie lourde industrielle</option>
             <option>Structures &amp; métallerie</option>
-            <option>Équipements agricoles</option>
+            <option>Équipements miniers et agricoles</option>
             <option>Plans 2D/3D + fabrication</option>
             <option>Autre</option>
           </select>
@@ -776,7 +777,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
         <li><a href="#services">Réservoirs &amp; cuves</a></li>
         <li><a href="#services">Tuyauterie industrielle</a></li>
         <li><a href="#services">Inox &amp; TIG</a></li>
-        <li><a href="#services">Équipements agricoles</a></li>
+        <li><a href="#services">Équipements miniers et agricoles</a></li>
         <li><a href="#plans">Plans 2D/3D</a></li>
       </ul></div>
       <div class="fcol"><h4>Zones</h4><ul>
@@ -794,7 +795,7 @@ footer.site{background:var(--ink);color:#DCE4F0;padding:64px 0 28px}
       </ul></div>
     </div>
     <div class="fbottom">
-      <p>© 2025 ProWeld Mobile. Tous droits réservés.</p>
+      <p>© 2026 ProWeld Mobile. Tous droits réservés.</p>
       <p>NEQ : 2281871980 · Lac-Drolet, Québec, Canada</p>
     </div>
   </div>
@@ -815,7 +816,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
     <p class="cal-sub">Je travaille du vendredi au dimanche. Touchez une date pour réserver.</p>
     <div class="cal-nav"><button id="cal-prev" aria-label="Mois précédent">‹</button><b id="cal-month"></b><button id="cal-next" aria-label="Mois suivant">›</button></div>
     <div class="cal-grid" id="cal-grid"></div>
-    <div class="cal-leg"><span><i style="background:#2E9E5B"></i>Libre</span><span><i style="background:#D64545"></i>Réservé</span><span><i style="background:var(--bg2)"></i>Sur demande</span></div>
+    <div class="cal-leg"><span><i style="background:#2E9E5B"></i>Libre</span><span><i style="background:#D64545"></i>Occupé</span><span><i style="background:var(--bg2)"></i>Sur demande</span></div>
     <div class="cal-info" id="cal-info"></div>
     <p class="cal-note">Les disponibilités sont indicatives : je les confirme par WhatsApp avant toute réservation.</p>
   </div>
@@ -1120,6 +1121,37 @@ ORIENTER DOUCEMENT VERS LA RÉSERVATION (sans être insistante)
      Pour marquer une date « Réservé » (rouge), ajoutez-la ici au format AAAA-MM-JJ.
      Exemple : const OCCUPIED = ['2026-11-07','2026-11-08']; */
   const OCCUPIED = [];
+  /* Feuille Google « Disponibilidad ProWeld » (colonne A = date, colonne B = Libre ou Occupé).
+     Chaque ligne remplace la règle habituelle pour cette date. */
+  const SHEET_ID = '1pQ47IiPiD94hGEwqe4HBYeSCDH7Huirgz-6vs8eTafQ';
+  const OVERRIDES = {};
+  function pad(n){return String(n).padStart(2,'0');}
+  function loadSheet(){
+    if(!SHEET_ID)return;
+    fetch('https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&headers=1&t='+Date.now())
+      .then(function(r){return r.text();})
+      .then(function(txt){
+        var a=txt.indexOf('{'),b=txt.lastIndexOf('}'); if(a<0||b<0)return;
+        var j=JSON.parse(txt.slice(a,b+1)); var rows=(j.table&&j.table.rows)||[];
+        Object.keys(OVERRIDES).forEach(function(k){delete OVERRIDES[k];});
+        rows.forEach(function(r){
+          var c=r.c||[]; var d=c[0]&&c[0].v, s=c[1]&&c[1].v; if(d==null||s==null)return;
+          var key=null;
+          if(typeof d==='string'){
+            var m=d.match(/^Date\((\d+),(\d+),(\d+)/);
+            if(m)key=m[1]+'-'+pad(+m[2]+1)+'-'+pad(m[3]);
+            else if(/^\d{4}-\d{2}-\d{2}$/.test(d.trim()))key=d.trim();
+          }
+          if(!key)return;
+          var v=String(s).trim().toLowerCase();
+          if(/^(libre|free|dispo)/.test(v))OVERRIDES[key]='free';
+          else if(/^(ocup|occup|reserv|réserv|busy)/.test(v))OVERRIDES[key]='busy';
+        });
+        if(modal.classList.contains('open'))render();
+      }).catch(function(){});
+  }
+  /* Lundi à jeudi : « Occupé » jusqu'à cette date (AAAA-MM-JJ). Après, ces jours passent à « Sur demande ». */
+  const SEMAINE_OCCUPEE_JUSQU_AU = '2026-12-31';
   const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
   const modal=document.getElementById('cal-modal'),grid=document.getElementById('cal-grid'),
@@ -1142,9 +1174,9 @@ ORIENTER DOUCEMENT VERS LA RÉSERVATION (sans être insistante)
     var n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
     for(var d=1;d<=n;d++){
       var dt=new Date(view.getFullYear(),view.getMonth(),d),dow=dt.getDay(),key=iso(dt),st;
-      if(dt<today)st='past'; else if(OCCUPIED.indexOf(key)>-1)st='busy'; else if(dow===5||dow===6||dow===0)st='free'; else st='off';
-      var b=document.createElement('button');b.type='button';b.className='cal-day '+st;b.textContent=d;
-      if(st==='free'||st==='busy'){(function(dt,st,b){b.addEventListener('click',function(){pick(dt,st,b);});})(dt,st,b);}
+      if(dt<today)st='past'; else if(OVERRIDES[key]==='busy'||OCCUPIED.indexOf(key)>-1)st='busy'; else if(OVERRIDES[key]==='free')st='free'; else if(dow===5||dow===6||dow===0)st='free'; else if(key<=SEMAINE_OCCUPEE_JUSQU_AU)st='week'; else st='off';
+      var b=document.createElement('button');b.type='button';b.className='cal-day '+(st==='week'?'busy week':st);b.textContent=d;
+      if(st==='free'||st==='busy'||st==='week'){(function(dt,st,b){b.addEventListener('click',function(){pick(dt,st,b);});})(dt,st,b);}
       else{b.disabled=true;}
       grid.appendChild(b);
     }
@@ -1154,11 +1186,12 @@ ORIENTER DOUCEMENT VERS LA RÉSERVATION (sans être insistante)
     btn.classList.add('sel');
     var label=JOURS[dt.getDay()]+' '+dt.getDate()+' '+MOIS[dt.getMonth()];
     info.className='cal-info show';
+    if(st==='week'){info.innerHTML='<b>'+label+'</b><br>Occupé en semaine. Je suis disponible du vendredi au dimanche : choisissez une date en vert.';return;}
     if(st==='busy'){info.innerHTML='<b>'+label+'</b><br>Cette date est déjà réservée. Écrivez-moi pour une autre fin de semaine.';return;}
     var msg='Bonjour ProWeld Mobile, je voudrais réserver le '+label+' pour un projet de soudure.';
     info.innerHTML='<b>'+label+'</b> — libre<br><a class="btn btn-o" href="https://wa.me/15813726673?text='+encodeURIComponent(msg)+'">Réserver par WhatsApp</a>';
   }
-  function open(){view=new Date(start);render();modal.classList.add('open');}
+  function open(){loadSheet();view=new Date(start);render();modal.classList.add('open');}
   function close(){modal.classList.remove('open');}
   document.querySelectorAll('[data-open-cal]').forEach(function(e){
     e.addEventListener('click',open);
@@ -1166,6 +1199,7 @@ ORIENTER DOUCEMENT VERS LA RÉSERVATION (sans être insistante)
   });
   document.getElementById('cal-close').addEventListener('click',close);
   modal.addEventListener('click',function(e){if(e.target===modal)close();});
+  loadSheet();
   prev.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);render();});
   next.addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);render();});
 
